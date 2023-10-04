@@ -1,54 +1,40 @@
 <script setup>
-import TodoCreator from "./CreatorComponent.vue"
-import TaskComponent from "./TaskComponent.vue"
-// eslint-disable-next-line no-unused-vars
-import { ref } from 'vue';
+import TodoCreator from "./CreatorComponent.vue";
+import TaskComponent from "./TaskComponent.vue";
+import {ref} from 'vue';
+import axios from 'axios';
+import {base_url} from "@/scripts/constants";
+import '../styles/Container.sass';
 
-let id = 0;
+const taskList = ref([]);
+const containerClassName = ref('todo-container');
 
-const taskList = ref([
-  {
-    id: id++,
-    taskDescription: "some kind of text",
-    deadLine: "23.04.2023",
-    isDone: false,
-    isArchived: false
-  },
-  {
-    id: id++,
-    taskDescription: "anotherTask",
-    deadLine: "23.04.2023",
-    isDone: false,
-    isArchived: false
-  },
-  {
-    id: id++,
-    taskDescription: "anotherTask",
-    deadLine: "23.04.2023",
-    isDone: false,
-    isArchived: false
-  }
-])
-const containerClassName = ref('todo-container')
-
-const createTask = (taskDescription) => {
-  taskList.value.push(
-      {
-        id: id++,
-        taskDescription: taskDescription,
-        deadLine: "23.04.2023",
-        isDone: false,
-        isArchived: false
-      }
-  )
+const createTask = (task) => {
+  taskList.value.push(task)
 }
 
 const deleteTask = (taskId) => {
+  axios.delete(base_url + taskId)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch(err => console.log(err));
+
   taskList.value = taskList.value.filter((task) => {
     return task.id !== taskId
   })
 }
 
+const fetchData = async() => {
+  try {
+    const response = await fetch(base_url)
+    taskList.value = await response.json();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+fetchData()
 </script>
 
 <template>
@@ -62,12 +48,9 @@ const deleteTask = (taskId) => {
             :is-done="task.isDone"
             :task-description="task.taskDescription"
             :on-delete="deleteTask"
+            :is-archived="task.isArchived"
         />
       </li>
     </ul>
   </div>
 </template>
-
-<style scoped>
-
-</style>
