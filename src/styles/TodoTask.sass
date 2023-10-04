@@ -1,0 +1,46 @@
+@use 'elementaries'
+
+.todo
+  @include elementaries.vertically_centered
+  margin-top: 10px
+  vertical-align: top
+  justify-content: space-between
+  text-align: left
+
+.todo-left
+  @include elementaries.vertically_centered
+  word-break: break-word
+  width: 370px
+
+.button
+  background-color: elementaries.$container-color
+  border: none
+
+
+.todo-right
+  @include elementaries.vertically_centered
+
+
+.delete-icon, .edit-icon
+  @include elementaries.completely_centered
+
+.delete-icon:hover, .edit-icon:hover
+  cursor: pointer
+  background-color: lightgrey
+
+.todo-text-content
+  padding-left: 15px
+  word-wrap: break-word
+
+image
+  border: none
+
+.todo-edit
+  border-radius: 10px
+  border: 1px solid rgb(50,50,50)
+  padding: 10px 150px 10px 10px
+
+input[type="checkbox"]
+  border-radius: 0
+  border: 1px solid black
+  padding: 15px

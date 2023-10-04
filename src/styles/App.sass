@@ -1,0 +1,13 @@
+@use 'elementaries'
+$default-font: "Calibri", sans-serif
+
+*
+    font-family: $default-font
+
+html, body, .root, .App
+    height: 100%
+
+
+body
+    @include elementaries.horizontal_centered()
+    background-color: rgb(245,245,245)

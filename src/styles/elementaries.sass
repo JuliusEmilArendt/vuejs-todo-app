@@ -1,0 +1,13 @@
+$container-color: white
+
+@mixin horizontal_centered()
+  display: flex
+  justify-content: center
+
+@mixin vertically_centered()
+  display: flex
+  align-items: center
+
+@mixin completely_centered()
+  @include horizontal_centered
+  align-items: center
